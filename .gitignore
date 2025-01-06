@@ -1,0 +1,6 @@
+__pycache__
+myenv
+Dockerfile
+matematic/graph.dot
+matematic/output.png
+core/__pycache__

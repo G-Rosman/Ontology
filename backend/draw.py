@@ -62,5 +62,5 @@ def draw():
     with open(dot_file_path, "w") as f:
         f.write(graph_text)
 
-    cmd = ['./Graphviz/bin/dot.exe', '-Tpng', dot_file_path, '-o', picture]
+    cmd = ['dot', '-Tpng', dot_file_path, '-o', picture]
     subprocess.run(cmd, capture_output=True, text=True, check=True)

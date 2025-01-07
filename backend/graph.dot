@@ -1,0 +1,16 @@
+digraph G {
+node[color = black, fontsize = 12];
+edge[color = black, fontsize = 12];
+"Dynamic" -> "edb" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Instruments" -> "Dynamic" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Instruments" -> "Ghidra" [dir=both,color = black,style = dotted, arrowhead=normal, arrowtail=box];
+"Instruments" -> "Ida" [dir=both,color = black,style = dotted, arrowhead=normal, arrowtail=box];
+"Instruments" -> "Radare" [dir=both,color = black,style = dotted, arrowhead=normal, arrowtail=box];
+"Instruments" -> "Static" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Instruments" -> "Symbolic" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Instruments" -> "binary_vulns" [dir=both,color = blue,arrowhead=normal, arrowtail=box];
+"Instruments" -> "edb" [dir=both,color = black,style = dotted, arrowhead=normal, arrowtail=box];
+"Static" -> "Ghidra" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Static" -> "Ida" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+"Static" -> "Radare" [dir=both,color = black,arrowhead=normal, arrowtail=box];
+}

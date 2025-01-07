@@ -3,8 +3,6 @@ from core.config import settings
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.responses import FileResponse
 import os
-import asyncio
-
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
 
@@ -13,14 +11,15 @@ def hello_api():
     return {"msg":"Привет FastAPI🚀"}
 
 
-async def generate_image(background_tasks: BackgroundTasks):
-    asyncio.create_task(draw())
-
 @app.get("/api/graph")
-async def graph(background_tasks: BackgroundTasks):
-    background_tasks.add_task(generate_image, background_tasks)
-    
-    return {"message": "Image generation started"}
+async def graph():
+    draw()
+    image_path = "output.png"
+    if not os.path.exists(image_path):
+        return {"error": "Image not found"}, 404
+    return FileResponse(image_path, media_type="image/png", filename="output.png")
+
+
 
 
 

@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List, Dict
 import subprocess
-from link_class import process_links
+from db import process_links
 def generate_graph(db_path: str) -> str:
     """
     Генерирует граф в формате DOT на основе данных из базы данных.

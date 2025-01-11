@@ -3,15 +3,31 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, MetaData, Table
 from datetime import datetime
 from sqlalchemy.orm import sessionmaker
+from fastapi import Depends
+from pydantic import BaseModel
 
+#engine = create_engine('sqlite:///example.db', echo=True)
+#Base = declarative_base()
+#Base.metadata.create_all(bind=engine)
 
+#conn = engine.connect()
+#session = sessionmaker(bind=conn)()
 
-engine = create_engine('sqlite:///example.db', echo=True)
+SQLALCHEMY_DATABASE_URL = "sqlite:///example.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 Base = declarative_base()
-Base.metadata.create_all(bind=engine)
 
-conn = engine.connect()
-session = sessionmaker(bind=conn)()
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def init():
+    Base.metadata.create_all(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 class Link(Base):
@@ -35,6 +51,42 @@ class Rool(Base):
     res_quantor = Column(String(25), nullable=False)
 
 
+class LinkCreate(BaseModel):
+    name_start: str
+    direction: str
+    relation: str
+    quantor: str
+    name_end: str
+    ring: int = None
+
+class LinkUpdate(BaseModel):
+    name_start: str | None = None
+    direction: str | None = None
+    relation: str | None = None
+    quantor: str | None = None
+    name_end: str | None = None
+    ring: int | None = None
+
+
+
+
+class RoolCreate(BaseModel):
+    directions: str
+    relations: str
+    quantors: str
+    res_direction: str
+    res_relation: str
+    res_quantor: str
+
+class RoolUpdate(BaseModel):
+    directions: str | None = None
+    relations: str | None = None
+    quantors: str | None = None
+    res_direction: str | None = None
+    res_relation: str | None = None
+    res_quantor: str | None = None
+
+    
 def search_rool_db(session, directions: str, relations: str, quantors: str) -> tuple: 
     try:
         result = (
@@ -62,6 +114,7 @@ def search_rool_db(session, directions: str, relations: str, quantors: str) -> t
         session.close()
 
 def build(link1, link2, ring):
+        session = Depends(get_db)
         a = search_rool_db(session, link1.direction + link2.direction, link1.relation + link2.relation, link1.quantor + link2.quantor)
         b = session.query(Link).filter_by(name_start=link1.name_start, direction=a[0], relation=a[1], quantor=a[2], name_end=link2.name_end).first()
         if (a and (b == None)):
@@ -73,6 +126,7 @@ def build(link1, link2, ring):
             return 0
 
 def process_links():
+    session = Depends(get_db)
     all_links = session.query(Link).all()
     flag = 0
 

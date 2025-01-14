@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy.orm import sessionmaker
 
 
-sqlite_file_name = "database/example.db"
+sqlite_file_name = "example.db"
 sqltile_url = f"sqlite:///{sqlite_file_name}"
 
 engine = create_engine(sqltile_url, echo=True)

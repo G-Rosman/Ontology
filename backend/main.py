@@ -8,12 +8,6 @@ import os
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
 
 
-
-@app.get("/")
-def hello_api():
-    return {"msg":"Привет FastAPI🚀"}
-
-
 @app.get("/api/graph")
 async def graph():
     draw()

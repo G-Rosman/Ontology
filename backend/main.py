@@ -1,10 +1,13 @@
 from draw import draw
 from core.config import settings
+from link_class import *
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.responses import FileResponse
 import os
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
+
+
 
 @app.get("/")
 def hello_api():
@@ -21,11 +24,15 @@ async def graph():
 
 
 
+@app.get("/api/links")
+async def show_links():
+    links =  show_all_links()
+    return {"links": links}, 200
 
-
-
-
-
+@app.get("/api/links/{id}")
+async def show_one_link(id:int):
+    link = show_one_link(id)
+    return {"link": link}, 200
 
 def add_data(session):
     pass

@@ -5,8 +5,10 @@ from datetime import datetime
 from sqlalchemy.orm import sessionmaker
 
 
+sqlite_file_name = "database/example.db"
+sqltile_url = f"sqlite:///{sqlite_file_name}"
 
-engine = create_engine('sqlite:///example.db', echo=True)
+engine = create_engine(sqltile_url, echo=True)
 Base = declarative_base()
 Base.metadata.create_all(bind=engine)
 
@@ -34,6 +36,10 @@ class Rool(Base):
     res_relation = Column(String(25), nullable=False)
     res_quantor = Column(String(25), nullable=False)
 
+
+def show_all_links():
+    links = session.query(Link).all()
+    return links
 
 def search_rool_db(session, directions: str, relations: str, quantors: str) -> tuple: 
     try:

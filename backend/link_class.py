@@ -41,6 +41,30 @@ def show_all_links():
     links = session.query(Link).all()
     return links
 
+def delete_link(id):
+    db_link = session.query(Link).filter(Link.id == id).first()
+    if db_link is None:
+        return None
+    session.delete(db_link)
+    session.commit()
+    return 1
+
+def update_one_link(id, link):
+    db_link = session.query(Link).filter(Link.id == id).first()
+    if db_link is None:
+        return None
+    link_dict = link.dict(exclude_unset=True)
+    for key, value in link_dict.items():
+        setattr(db_link, key, value)
+    session.add(db_link)
+    session.commit()
+    session.refresh(db_link)
+    return db_link
+
+def create_one_link(link):
+    session.add(link)
+    session.commit()
+
 def search_rool_db(session, directions: str, relations: str, quantors: str) -> tuple: 
     try:
         result = (

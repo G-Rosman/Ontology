@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <nav>
+      <router-link to="/links">Links</router-link> |
+      <router-link to="/rules">Rules</router-link> |
+      <router-link to="/graph">Graph</router-link>
+    </nav>
     <router-view></router-view>
   </div>
 </template>

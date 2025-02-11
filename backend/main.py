@@ -30,14 +30,14 @@ def create_link(link: schemas.LinkCreate, session: Session = Depends(get_session
     session.refresh(linkdb)
     return linkdb
 
-@app.get("/link/{id}", response_model=schemas.Link)
+@app.get("/api/link/{id}", response_model=schemas.Link)
 def read_link(id: int, session: Session = Depends(get_session)):
     link = session.query(models.Link).get(id)
     if not link:
         raise HTTPException(status_code=404, detail=f"link item with id {id} not found")
     return link
 
-@app.put("/update/link/{id}", response_model=schemas.Link)
+@app.put("/api/update/link/{id}", response_model=schemas.Link)
 def update_link(id: int, link_data: schemas.LinkCreate, session: Session = Depends(get_session)):
     linkdb = session.query(models.Link).get(id)
     if linkdb:
@@ -48,7 +48,7 @@ def update_link(id: int, link_data: schemas.LinkCreate, session: Session = Depen
         raise HTTPException(status_code=404, detail=f"link item with id {id} not found")
     return linkdb
 
-@app.delete("/delete/link/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/api/delete/link/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_link(id: int, session: Session = Depends(get_session)):
     link = session.query(models.Link).get(id)
     if link:
@@ -72,14 +72,14 @@ def create_rule(rule: schemas.RuleCreate, session: Session = Depends(get_session
     session.refresh(ruledb)
     return ruledb
 
-@app.get("/rule/{id}", response_model=schemas.Rule)
+@app.get("/api/rule/{id}", response_model=schemas.Rule)
 def read_rule(id: int, session: Session = Depends(get_session)):
     rule = session.query(models.Rule).get(id)
     if not rule:
         raise HTTPException(status_code=404, detail=f"link item with id {id} not found")
     return rule
 
-@app.put("/update/rule/{id}", response_model=schemas.Rule)
+@app.put("/api/update/rule/{id}", response_model=schemas.Rule)
 def update_rule(id: int, rule_data: schemas.RuleCreate, session: Session = Depends(get_session)):
     ruledb = session.query(models.Rule).get(id)
     if ruledb:
@@ -90,7 +90,7 @@ def update_rule(id: int, rule_data: schemas.RuleCreate, session: Session = Depen
         raise HTTPException(status_code=404, detail=f"rule item with id {id} not found")
     return ruledb
 
-@app.delete("/delete/rule/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/api/delete/rule/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_rule(id: int, session: Session = Depends(get_session)):
     rule = session.query(models.Rule).get(id)
     if rule:

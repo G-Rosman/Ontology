@@ -1,6 +1,6 @@
 <template>
   <div class="graph-container">
-      <h2 class="title">Визуализация графа</h2>
+      <h2 class="title">Граф</h2>
       
       <div class="image-wrapper">
           <img 
@@ -113,7 +113,7 @@
   
   .title {
       text-align: center;
-      margin-bottom: 2rem;
+      margin: 2rem 0;
       font-size: 1.75rem;
       color: #333;
   }

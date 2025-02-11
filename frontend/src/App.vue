@@ -2,7 +2,7 @@
   <div id="app">
       <nav class="navbar">
           <div class="navbar-brand">
-              <span class="brand-text">Граф</span>
+              <span class="brand-text">Онтологии</span>
           </div>
           
           <div class="navbar-links">

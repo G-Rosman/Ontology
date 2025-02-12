@@ -3,13 +3,6 @@
       <h2 class="section-title">Links</h2>
       
       <table class="links-table">
-          <thead>
-              <tr>
-                  <th>Connection</th>
-                  <th>Properties</th>
-                  <th>Actions</th>
-              </tr>
-          </thead>
           <tbody>
               <tr v-for="link in links" :key="link.id">
                   <td class="connection">
@@ -83,7 +76,7 @@
       </table>
   
       <button class="create-button" @click="createLink">
-          Create New Link
+         Быстрый просмотр
       </button>
   </div>
   </template>

@@ -23,10 +23,6 @@
               </tr>
           </tbody>
       </table>
-  
-      <button class="create-button" @click="createLink">
-          Create New Link
-      </button>
   </div>
   </template>
   
